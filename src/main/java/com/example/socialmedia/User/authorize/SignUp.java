@@ -19,10 +19,13 @@ public class SignUp {
     @Autowired
     private Encrypter encrypter;
 
-    ResponseEntity<String> createUser(String email, String password, String username)
+    public ResponseEntity<String> createUser(String email, String password, String username)
     {
         if(userepo.existsByEmail(email))
-        return new ResponseEntity<>("Email Already Exists", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Email Already Exists", HttpStatus.CONFLICT);
+
+        if(userepo.existsByUsername(username))
+            return new ResponseEntity<>("Username Already Exists", HttpStatus.CONFLICT);
 
         User user = new User();
         user.setEmail(email);
@@ -31,4 +34,6 @@ public class SignUp {
         userepo.save(user);
         return new ResponseEntity<>("User created", HttpStatus.CREATED);
     }
+
+
 }
