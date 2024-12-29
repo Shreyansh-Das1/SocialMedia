@@ -1,8 +1,8 @@
 package com.example.socialmedia.User;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.example.socialmedia.Posts.Post;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +15,8 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
     private String bio;
+    @JsonIgnore
     private String password;
-    //private ArrayList<Post> posts;
+    @OneToMany
+    ArrayList<Post> post;
 }
